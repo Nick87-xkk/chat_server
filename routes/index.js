@@ -13,9 +13,13 @@ router.get('/demo', (req, res, next) => {
   }))
 });
 
-const studentController = require('../controllers/studentController');
+const studentController= require('../controllers/studentController');
+const {param} = require("express/lib/router");
 
-// 获取用户信息
-router.get('/get_user', studentController.showStudent);
+// 获取学生信息
+router.get('/get_student', studentController.showStudent);
+//
+router.post('/add_student', studentController.addStudent);
 
+router.post('/delete_student',studentController.deleteStudent)
 module.exports = router;
