@@ -9,6 +9,9 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const studentRouter = require('./routes/student');
 
+// 视图引擎
+const ejs = require('ejs');
+
 const app = express();
 
 // 跨域
@@ -22,7 +25,9 @@ app.all('*', (req, res, next) => {
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('view engine', 'jade');
+app.engine('.html',ejs.__express);
+app.set('view engine', 'html');
 
 app.use(logger('dev'));
 app.use(express.json());
