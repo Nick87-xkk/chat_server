@@ -6,7 +6,6 @@ class StudentModel extends Base {
     constructor(props = 'javaee.student') {
         super(props);
     }
-
     // 重写base类的delete
     delete(id) {
         return knex(this.table).where('sid', '=', id).del();

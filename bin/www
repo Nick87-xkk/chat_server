@@ -21,7 +21,9 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+// 启动服务同时，创建socket服务
 io.getSocketio(server)
+
 /**
  * Listen on provided port, on all network interfaces.
  */

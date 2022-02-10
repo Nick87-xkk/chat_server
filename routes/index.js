@@ -18,6 +18,16 @@ router.get('/demo', (req, res, next) => {
   }))
 });
 
+router.post('/demo/test',(req,res,next)=>{
+  let {user,pwd} = req.query
+  // 接受、处理、存储、返回
+  if (user == 1001){
+    res.send('1')
+
+  }else{
+    res.send('0')
+  }
+})
 
 
 module.exports = router;
