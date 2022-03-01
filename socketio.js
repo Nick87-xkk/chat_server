@@ -7,34 +7,16 @@
     var io = socket_io(server,{cors:true});
 
     io.on('connection', (socket)=>{
-        console.log('a user connected');
-        console.log(`${socket.id}
-         ${socket.handshake.query.user}`
-        );
-      });
-
-
-    //   io.on('connection', function(socket){
-    //       console.log('a user connected');
-    //       socket.on('disconnect', function(){
-    //           console.log('------------user disconnected-------------');
-    //       //   io.emit('chat message','user disconnected');
-    //       });
-    //     });
-
-
-      io.on('connection', function(socket){
-          socket.on('chat message', function(msg){
-            console.log('message: ' + msg);
-          });
-        });
-
-      io.on('connection',(socket)=>{
-          socket.on('chat message',(msg)=>{
-              io.emit('chat message',`${socket.handshake.query.user}: ${msg}`);
+        // console.log('a user connected');
+        // console.log(socket.handshake.query);
+        // console.log(socket.id);
+        console.log(io.sockets.adapter.rooms);
+        // 向除了自己以外的客户端推送消息
+         socket.on('chat message',(msg)=>{
+            console.log(msg);
+              socket.broadcast.emit('chat message',`${socket.handshake.query.user}: ${msg}`);
           });
       });
-
 
   };
 
