@@ -30,9 +30,15 @@ socketio.getSocketio = function (server) {
       socket.to(chatMap.get(msg.receiveAccount.toString().toString())).emit('chat message', `${socket.handshake.query.account}: ${msg.data}`);
 
       // socket.broadcast.emit('chat message', `${socket.handshake.query.account}: ${msg}`);
+   
+    
     });
+    socket.on('video message',(msg)=>{
+      console.log(msg);
+      socket.emit('video message',msg.data)
+    })
   });
-
+ 
 };
 
 /* 
