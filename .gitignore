@@ -4,7 +4,3 @@ npm-debug.log
 yarn-error.log
 node_modules
 log
-config.js
-mongodb.js
-mongoose.js
-mongo_base.js
