@@ -15,6 +15,7 @@ var io = require('../socketio')
 
 var port = normalizePort(process.env.PORT || '9892');
 app.set('port', port);
+app.set('host','0.0.0.0');
 
 /**
  * Create HTTP server.

@@ -1,0 +1,8 @@
+.DS_Store
+.idea
+npm-debug.log
+yarn-error.log
+node_modules
+log
+
+redis手册.js
