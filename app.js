@@ -6,7 +6,7 @@ const logger = require('morgan');
 
 // 分路由
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const userRouter = require('./routes/user');
 const studentRouter = require('./routes/student');
 
 // 视图引擎
@@ -36,7 +36,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
 app.use('/student', studentRouter);
 
 
