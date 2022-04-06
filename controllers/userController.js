@@ -8,10 +8,13 @@ const userController = {
     // 验证登录
     verificationUser: async (req, res) => {
         try {
-            let user = await UserController.selectByAccount(req.ac)
+            // console.log(md5("a123456"));
+            console.log(req.body);
+            let user = await UserController.selectByAccount(req.body.account)
+            console.log(user);
             // MD5比对
             let pd = md5(user[0].password)
-            req.pd === pd ?
+            req.body.pd === pd ?
                 res.json({
                     code: 200,
                     message: 'success',

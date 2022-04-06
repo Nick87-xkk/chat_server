@@ -16,37 +16,40 @@ var userController = {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
-            _context.next = 3;
-            return regeneratorRuntime.awrap(UserController.selectByAccount(req.ac));
+            // console.log(md5("a123456"));
+            console.log(req.body);
+            _context.next = 4;
+            return regeneratorRuntime.awrap(UserController.selectByAccount(req.body.account));
 
-          case 3:
+          case 4:
             user = _context.sent;
-            // MD5比对
+            console.log(user); // MD5比对
+
             pd = md5(user[0].password);
-            req.pd === pd ? res.json({
+            req.body.pd === pd ? res.json({
               code: 200,
               message: 'success'
             }) : res.json({
               code: 100,
               message: 'failed'
             });
-            _context.next = 11;
+            _context.next = 13;
             break;
 
-          case 8:
-            _context.prev = 8;
+          case 10:
+            _context.prev = 10;
             _context.t0 = _context["catch"](0);
             res.json({
               code: 0,
               message: _context.t0
             });
 
-          case 11:
+          case 13:
           case "end":
             return _context.stop();
         }
       }
-    }, null, null, [[0, 8]]);
+    }, null, null, [[0, 10]]);
   },
   // 用户注册
   userRegistration: function userRegistration(req, res) {
