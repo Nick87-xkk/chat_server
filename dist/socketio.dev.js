@@ -2,11 +2,7 @@
 
 var socketio = {};
 
-var socket_io = require('socket.io');
-
-var studentController = require('./controllers/studentController');
-
-var studentModel = require('./models/studentModel'); // 存储account对应socketid
+var socket_io = require('socket.io'); // 存储account对应socketid
 
 
 var chatMap = new Map(); //获取io

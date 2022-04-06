@@ -13,9 +13,7 @@ var logger = require('morgan'); // 分路由
 
 var indexRouter = require('./routes/index');
 
-var userRouter = require('./routes/user');
-
-var studentRouter = require('./routes/student'); // 视图引擎
+var userRouter = require('./routes/user'); // 视图引擎
 
 
 var ejs = require('ejs');
@@ -42,8 +40,7 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express["static"](path.join(__dirname, 'public')));
 app.use('/', indexRouter);
-app.use('/user', userRouter);
-app.use('/student', studentRouter); // catch 404 and forward to error handler
+app.use('/user', userRouter); // catch 404 and forward to error handler
 
 app.use(function (req, res, next) {
   next(createError(404));
