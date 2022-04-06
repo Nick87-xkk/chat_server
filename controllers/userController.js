@@ -1,4 +1,5 @@
 const UserController = require('../models/userModule.js');
+const md5 = require('js-md5');
 const {
     param
 } = require("express/lib/router");
@@ -7,13 +8,18 @@ const userController = {
     // 验证登录
     verificationUser: async (req, res) => {
         try {
-            let userPw = await UserController.selectByAccount(88888888)
-            console.log(userPw);
-            res.json({
-                code: 200,
-                message: 'success',
-                data: userPw
-            })
+            let user = await UserController.selectByAccount(req.ac)
+            // MD5比对
+            let pd = md5(user[0].password)
+            req.pd === pd ?
+                res.json({
+                    code: 200,
+                    message: 'success',
+                }) :
+                res.json({
+                    code: 100,
+                    message: 'failed',
+                })
         } catch (error) {
             res.json({
                 code: 0,

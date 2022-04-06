@@ -2,28 +2,33 @@
 
 var UserController = require('../models/userModule.js');
 
+var md5 = require('js-md5');
+
 var _require = require("express/lib/router"),
     param = _require.param;
 
 var userController = {
   // 验证登录
   verificationUser: function verificationUser(req, res) {
-    var userPw;
+    var user, pd;
     return regeneratorRuntime.async(function verificationUser$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return regeneratorRuntime.awrap(UserController.selectByAccount(88888888));
+            return regeneratorRuntime.awrap(UserController.selectByAccount(req.ac));
 
           case 3:
-            userPw = _context.sent;
-            console.log(userPw);
-            res.json({
+            user = _context.sent;
+            // MD5比对
+            pd = md5(user[0].password);
+            req.pd === pd ? res.json({
               code: 200,
-              message: 'success',
-              data: userPw
+              message: 'success'
+            }) : res.json({
+              code: 100,
+              message: 'failed'
             });
             _context.next = 11;
             break;
