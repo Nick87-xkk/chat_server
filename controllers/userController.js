@@ -3,7 +3,7 @@ const UserController = require('../models/userModule.js');
 const userController = {
     // 验证登录
     verificationUser: async (req, res) => {
-        try{
+        try {
             console.log(req.body);
             let user = await UserController.selectByAccount(req.body.account)
             console.log(user);
@@ -43,8 +43,8 @@ const userController = {
     // 修改密码
     changePassword: async (req, res) => {
         try {
-            let { account, newPd } = req.body;
-            let flag = await UserController.changePassword(account,newPd);
+            let {account, newPd} = req.body;
+            let flag = await UserController.changePassword(account, newPd);
             res.json({
                 code: 200,
                 message: flag
@@ -60,14 +60,13 @@ const userController = {
     searchUser: async (req, res) => {
         try {
             let {account, nickname} = req.body;
+            let userInfo = '';
             if (account) {
-                let userInfo = await UserController.searchByAccount(account);
-                res.json({
-                    code: 200,
-                    message: userInfo
-                });
+                userInfo = await UserController.searchByAccount(account);
             } else if (nickname) {
-                let userInfo = await UserController.searchByNickname(nickname);
+                userInfo = await UserController.searchByNickname(nickname);
+            }
+            if (userInfo.length) {
                 res.json({
                     code: 200,
                     message: userInfo
@@ -78,10 +77,10 @@ const userController = {
                     message: 'failed'
                 })
             }
-        }catch (error) {
+        } catch (error) {
             res.json({
-                code:0,
-                message:error
+                code: 0,
+                message: error
             })
         }
         //    账号搜索、昵称搜索
