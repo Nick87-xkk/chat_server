@@ -1,5 +1,5 @@
 const Base = require('./base');
-const knex = require("../models/knex");
+const knex = require("./knex");
 
 class UserModel extends Base {
     constructor() {

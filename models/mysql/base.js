@@ -1,4 +1,4 @@
-const knex = require('../models/knex');
+const knex = require('./knex');
 
 class Base{
   constructor(props){

@@ -1,11 +1,11 @@
-const UserController = require('../models/userModule.js');
+const userModel = require('../models/mysql/userModule.js');
 
 const userController = {
     // 验证登录
     verificationUser: async (req, res) => {
         try {
             console.log(req.body);
-            let user = await UserController.selectByAccount(req.body.account)
+            let user = await userModel.selectByAccount(req.body.account)
             console.log(user);
             // MD5比对
             let pd = user[0].password
@@ -44,7 +44,7 @@ const userController = {
     changePassword: async (req, res) => {
         try {
             let {account, newPd} = req.body;
-            let flag = await UserController.changePassword(account, newPd);
+            let flag = await userModel.changePassword(account, newPd);
             res.json({
                 code: 200,
                 message: flag
@@ -62,9 +62,9 @@ const userController = {
             let {account, nickname} = req.body;
             let userInfo = '';
             if (account) {
-                userInfo = await UserController.searchByAccount(account);
+                userInfo = await userModel.searchByAccount(account);
             } else if (nickname) {
-                userInfo = await UserController.searchByNickname(nickname);
+                userInfo = await userModel.searchByNickname(nickname);
             }
             if (userInfo.length) {
                 res.json({
