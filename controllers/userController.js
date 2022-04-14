@@ -59,17 +59,16 @@ const userController = {
     // 搜索用户
     searchUser: async (req, res) => {
         try {
-            let {account, nickname} = req.body;
-            let userInfo = '';
-            if (account) {
-                userInfo = await userModel.searchByAccount(account);
-            } else if (nickname) {
-                userInfo = await userModel.searchByNickname(nickname);
-            }
-            if (userInfo.length) {
+            let {user} = req.body;
+            let userInfoByAccount;
+            let userInfoByNickname;
+            userInfoByAccount = await userModel.searchByAccount(user);
+            userInfoByNickname = await userModel.searchByNickname(user);
+            if (userInfoByNickname.length || userInfoByAccount.length) {
                 res.json({
                     code: 200,
-                    message: userInfo
+                    userInfoByAccount,
+                    userInfoByNickname
                 })
             } else {
                 res.json({
@@ -83,7 +82,6 @@ const userController = {
                 message: error
             })
         }
-        //    账号搜索、昵称搜索
 
     }
 }
