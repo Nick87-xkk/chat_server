@@ -6,7 +6,7 @@ const userController = {
         try {
             console.log(req.body);
             let user = await userModel.selectByAccount(req.body.account)
-            console.log(user);
+            // console.log(user);
             // MD5比对
             let pd = user[0].password
             req.body.pd === pd ?

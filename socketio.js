@@ -11,16 +11,16 @@ socketio.getSocketio = function (server) {
     });
 
     io.on('connection', (socket) => {
-        /* console.log('a user connected');
+         // console.log('a user connected');
         console.log(socket.handshake.query);
-        console.log(socket.id); */
+        // console.log(socket.id);
         // console.log(io.sockets.adapter.rooms);
         // 向除了自己以外的客户端推送消息
         chatMap.set(socket.handshake.query.account, socket.id);
-        // console.log(chatMap);
+        console.log(chatMap);
         // console.log(socket.id,socket.handshake.query.account);
         socket.on('chat message', async (msg) => {
-            // console.log(msg.receiveAccount);
+            console.log(msg);
 
             // console.log(chatMap.get(msg.receiveAccount.toString()));
 
