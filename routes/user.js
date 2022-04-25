@@ -14,5 +14,8 @@ router.post('/change', userController.changePassword);
 router.post('/searchUser', userController.searchUser);
 // 检索用户好友列表
 router.get('/selectUserFriend',friendController.selectUserFriend);
-
+// 获取会话列表
+router.get('/searchConversion',friendController.searchConversion);
+// 获取分组信息
+router.get('/searchFriendGroups',friendController.searchFriendGroups)
 module.exports = router;

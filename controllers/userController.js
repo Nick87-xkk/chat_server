@@ -83,7 +83,11 @@ const userController = {
             })
         }
 
-    }
+    },
+    // 好友申请
+    friendRequest: async ()=>{},
+    // 接收或拒绝好友申请
+    AcceptOrRejectFriendRequest: async ()=>{}
 }
 
 module.exports = userController

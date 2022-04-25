@@ -12,15 +12,17 @@ socketio.getSocketio = function (server) {
 
     io.on('connection', (socket) => {
          // console.log('a user connected');
-        console.log(socket.handshake.query);
+        // console.log(socket.handshake.query);
         // console.log(socket.id);
         // console.log(io.sockets.adapter.rooms);
+        // 链接数量
+        console.log(io.eio.clientsCount)
         // 向除了自己以外的客户端推送消息
         chatMap.set(socket.handshake.query.account, socket.id);
-        console.log(chatMap);
+        // console.log(chatMap);
         // console.log(socket.id,socket.handshake.query.account);
         socket.on('chat message', async (msg) => {
-            console.log(msg);
+            // console.log(msg);
 
             // console.log(chatMap.get(msg.receiveAccount.toString()));
 
@@ -36,11 +38,16 @@ socketio.getSocketio = function (server) {
             // console.log(msg)
             socket.broadcast.emit('visitor', msg);
         })
-
         socket.on('video message', (msg) => {
-            console.log(msg);
+            // console.log(msg);
             socket.emit('video message', msg.data)
         })
+
+        socket.on('ice_candidate',async(msg)=>{
+            // console.log(msg);
+            socket.broadcast.emit('_ice_candidate',msg);
+        })
+
     });
 
 };
