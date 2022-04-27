@@ -7,7 +7,7 @@ const logger = require('morgan');
 // 分路由
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
-
+const fileUpload = require('./routes/fileUpload')
 // 视图引擎
 const ejs = require('ejs');
 
@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
-
+app.use('/file',fileUpload)
 
 
 // catch 404 and forward to error handler

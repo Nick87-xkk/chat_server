@@ -42,12 +42,11 @@ socketio.getSocketio = function (server) {
             // console.log(msg);
             socket.emit('video message', msg.data)
         })
-
+        // rtc 视频 数据处理
         socket.on('ice_candidate',async(msg)=>{
             // console.log(msg);
             socket.broadcast.emit('_ice_candidate',msg);
         })
-
     });
 
 };
