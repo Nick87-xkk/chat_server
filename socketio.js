@@ -28,10 +28,9 @@ socketio.getSocketio = function (server) {
 
             //  console.log(await studentModel.selectById(1001));
             // 发送给对应用户
-            // socket.to(chatMap.get(msg.receiveAccount.toString().toString())).emit('chat message', `${socket.handshake.query.account}: ${msg.data}`);
+            socket.to(chatMap.get(msg.receiveAccount.toString().toString())).emit('chat message', JSON.stringify(msg));
 
-            socket.broadcast.emit('chat message', `${socket.handshake.query.account}: ${msg.data}`);
-
+            // socket.broadcast.emit('chat message', `${socket.handshake.query.account}: ${msg.data}`);
 
         });
         socket.on('visitor', (msg) => {
@@ -44,7 +43,7 @@ socketio.getSocketio = function (server) {
         })
         // rtc 视频 数据处理
         socket.on('ice_candidate',async(msg)=>{
-            // console.log(msg);
+            // console.log(JSON.parse(msg));
             socket.broadcast.emit('_ice_candidate',msg);
         })
     });

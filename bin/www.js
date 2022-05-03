@@ -7,8 +7,15 @@
 var app = require('../app');
 var debug = require('debug')('helloworld:server');
 var http = require('http');
+var https = require('https');
+var fs = require('fs')
 var io = require('../socketio')
 
+//https 证书
+const options = {
+  key: fs.readFileSync('../key/privatekey.pem'),
+  cert: fs.readFileSync('../key/certificate.pem')
+}
 /**
  * Get port from environment and store in Express.
  */
@@ -21,17 +28,23 @@ app.set('host','0.0.0.0');
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(options,app);
 // 启动服务同时，创建socket服务
-io.getSocketio(server)
-
+io.getSocketio(httpServer)
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+httpServer.listen(port);
+httpServer.on('error', onError);
+httpServer.on('listening', onListening);
+
+httpsServer.listen(443,()=>{
+  console.log('https 运行')
+})
+httpsServer.on('error', onError);
+httpsServer.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -86,7 +99,7 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
+  var addr = httpServer.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
