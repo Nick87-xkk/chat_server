@@ -18,6 +18,26 @@ class UserModel extends Base {
         return knex(this.userTable).where('account', '=', account).select();
     }
 
+    // 注册账号
+    userRegistration (data) {
+        return knex(this.userTable).insert({
+            "account":data.account,
+            "password":data.password,
+            "create_time":data.create_time
+        });
+    }
+    // 注册添加个人信息
+    userRegistrationInfo(data){
+        return knex(this.userInfoTable).insert({
+            "account":data.account,
+            "nickname":data.nickname,
+            "phone":data.phone,
+            "email":data.email,
+            "profile":data.profile,
+            "signature":data.signature
+        })
+    }
+
     // 按照账户查询
     searchByAccount(account) {
         return knex(this.userInfoTable).where('account', '=', account).select();

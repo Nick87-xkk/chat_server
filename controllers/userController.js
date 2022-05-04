@@ -28,12 +28,16 @@ const userController = {
     // 用户注册
     userRegistration: async (req, res) => {
         try {
-            console.log(req);
+            console.log(req.body)
+            let flg1 = await userModel.userRegistration(req.body)
+            let flg2 = await userModel.userRegistrationInfo(req.body)
+            // console.log(req);
             res.json({
                 code: 200,
-                message: 'success'
+                message: flg1,flg2
             })
         } catch (error) {
+            console.log(error)
             res.json({
                 code: 0,
                 message: error
@@ -85,9 +89,11 @@ const userController = {
 
     },
     // 好友申请
-    friendRequest: async ()=>{},
+    friendRequest: async () => {
+    },
     // 接收或拒绝好友申请
-    AcceptOrRejectFriendRequest: async ()=>{}
+    AcceptOrRejectFriendRequest: async () => {
+    }
 }
 
 module.exports = userController
