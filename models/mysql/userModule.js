@@ -6,6 +6,7 @@ class UserModel extends Base {
         super();
         this.userTable = 'chattest.user';
         this.userInfoTable = 'chattest.user_info';
+        this.friendRequestTable = 'chattest.friendrequest'
     }
 
     // 定义参数默认值为 student 表
@@ -51,6 +52,17 @@ class UserModel extends Base {
     // 修改密码
     changePassword(account,newPd){
         return knex(this.userTable).where('account','=',account).update({password:newPd});
+    }
+
+    // 好友申请
+    friendRequest(data){
+        return knex(this.friendRequestTable).insert({
+            apply_account:data.apply_account,
+            target_account:data.target_account,
+            apply_group:data.apply_group,
+            message:data.message,
+            state:data.state
+        })
     }
 }
 

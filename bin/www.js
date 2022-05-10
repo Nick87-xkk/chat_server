@@ -31,7 +31,7 @@ app.set('host','0.0.0.0');
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(options,app);
 // 启动服务同时，创建socket服务
-io.getSocketio(httpServer)
+io.getSocketio(httpsServer)
 /**
  * Listen on provided port, on all network interfaces.
  */

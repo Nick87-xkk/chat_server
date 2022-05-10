@@ -89,7 +89,21 @@ const userController = {
 
     },
     // 好友申请
-    friendRequest: async () => {
+    friendRequest: async (req,res) => {
+        try {
+            console.log(req.body)
+            let state = await userModel.friendRequest(req.body);
+            res.json({
+                code:200,
+                message:'success'
+            })
+        }catch (e) {
+            console.log(e)
+            res.json({
+                code:0,
+                message:e
+            })
+        }
     },
     // 接收或拒绝好友申请
     AcceptOrRejectFriendRequest: async () => {

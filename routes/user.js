@@ -17,5 +17,7 @@ router.get('/selectUserFriend',friendController.selectUserFriend);
 // 获取会话列表
 router.get('/searchConversion',friendController.searchConversion);
 // 获取分组信息
-router.get('/searchFriendGroups',friendController.searchFriendGroups)
+router.get('/searchFriendGroups',friendController.searchFriendGroups);
+// 发送好友请求
+router.post('/friendRequest', userController.friendRequest);
 module.exports = router;

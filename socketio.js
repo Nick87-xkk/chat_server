@@ -25,9 +25,9 @@ socketio.getSocketio = function (server) {
             // console.log(msg);
 
             // console.log(chatMap.get(msg.receiveAccount.toString()));
-
+            // console.log(chatMap.get(msg.receiveAccount.toString().toString()))
             //  console.log(await studentModel.selectById(1001));
-            // 发送给对应用户
+            // 发送给对应用户dd
             socket.to(chatMap.get(msg.receiveAccount.toString().toString())).emit('chat message', JSON.stringify(msg));
 
             // socket.broadcast.emit('chat message', `${socket.handshake.query.account}: ${msg.data}`);
@@ -37,14 +37,23 @@ socketio.getSocketio = function (server) {
             // console.log(msg)
             socket.broadcast.emit('visitor', msg);
         })
-        socket.on('video message', (msg) => {
+        // 发起视屏
+        socket.on('video_call', (msg) => {
             // console.log(msg);
-            socket.emit('video message', msg.data)
+            // 视屏通话请求
+            socket.to(chatMap.get(msg.receiveAccount.toString().toString())).emit('video-request', msg.data)
         })
         // rtc 视频 数据处理
         socket.on('ice_candidate',async(msg)=>{
             // console.log(JSON.parse(msg));
+            let json = JSON.parse(msg);
+            // console.log(chatMap.get(msg.receiveAccount))
+            // console.log(chatMap)
+            // console.log(json.receiveAccount)
             socket.broadcast.emit('_ice_candidate',msg);
+            /*if (json.receiveAccount){
+                socket.to(chatMap.get(json.receiveAccount.toString())).emit('_ice_candidate',msg);
+            }*/
         })
     });
 
