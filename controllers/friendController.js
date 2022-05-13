@@ -78,7 +78,10 @@ const friendController = {
 
     },
     // 保存消息
-    saveMessage: async (req,res)=>{},
+    saveMessage: async (req,res)=>{
+        client.zrange('friend',1,'account')
+        // client.zadd()
+    },
    /*建立会话
    * 添加好友后向conversion表中添加两人会话
    * */

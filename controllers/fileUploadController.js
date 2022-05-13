@@ -37,6 +37,12 @@ const fileController = {
             console.log(files);*/
 
         })
+    },
+
+    download: async (req,res)=>{
+        res.download('./public/upfiles/test.txt','testfile',(err)=>{
+            console.log(err)
+        })
     }
 }
 
