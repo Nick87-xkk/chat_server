@@ -7,8 +7,9 @@ const logger = require('morgan');
 // 分路由
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
-const fileUploadRouter = require('./routes/fileUpload')
-const messageRouter = require('./routes/message')
+const fileUploadRouter = require('./routes/fileUpload');
+const messageRouter = require('./routes/message');
+const conversion = require('./routes/conversion')
 // 视图引擎
 const ejs = require('ejs');
 
@@ -26,7 +27,7 @@ app.all('*', (req, res, next) => {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
-app.engine('.html',ejs.__express);
+app.engine('.html', ejs.__express);
 app.set('view engine', 'html');
 
 app.use(logger('dev'));
@@ -37,8 +38,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // 路由配置
 app.use('/', indexRouter);
 app.use('/user', userRouter);
-app.use('/file',fileUploadRouter);
-app.use('/msg',messageRouter);
+app.use('/file', fileUploadRouter);
+app.use('/msg', messageRouter);
+app.use('/cvn', conversion);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
