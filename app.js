@@ -10,6 +10,7 @@ const userRouter = require('./routes/user');
 const fileUploadRouter = require('./routes/fileUpload');
 const messageRouter = require('./routes/message');
 const conversion = require('./routes/conversion')
+const friend = require('./routes/friend');
 // 视图引擎
 const ejs = require('ejs');
 
@@ -41,7 +42,7 @@ app.use('/user', userRouter);
 app.use('/file', fileUploadRouter);
 app.use('/msg', messageRouter);
 app.use('/cvn', conversion);
-
+app.use('/friend',friend);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
