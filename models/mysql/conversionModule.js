@@ -16,11 +16,9 @@ class ConversionModule extends Base{
     // 查询会话
     searchConversion(data){
         return knex(this.conversionTable).where({
-            "create_account":data.create_account,
-            "member_account":data.member_account
+            "create_account":data.account
         }).orWhere({
-            "create_account":data.member_account,
-            "member_account":data.create_account
+            "member_account":data.account
         }).select()
     }
     // 更新最新消息

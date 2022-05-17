@@ -107,6 +107,22 @@ const userController = {
     },
     // 接收或拒绝好友申请
     AcceptOrRejectFriendRequest: async () => {
+    },
+    //
+    batchSearchUser: async (req,res)=>{
+        try {
+            console.log(req.body)
+            let results = await userModel.batchSearchUser(req.body.friends);
+            res.json({
+                code:200,
+                message:results
+            })
+        }catch (e) {
+            res.json({
+                code:0,
+                message:e
+            })
+        }
     }
 }
 

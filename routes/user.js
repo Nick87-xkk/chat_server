@@ -10,5 +10,6 @@ router.post('/register', userController.userRegistration);
 router.post('/change', userController.changePassword);
 // 搜索用户
 router.post('/searchUser', userController.searchUser);
-
+// 批量查询用户信息
+router.post('/batchSearch',userController.batchSearchUser)
 module.exports = router;

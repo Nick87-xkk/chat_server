@@ -64,6 +64,11 @@ class UserModel extends Base {
             state:data.state
         })
     }
+
+    // 批量查询用户信息
+    batchSearchUser(data){
+        return knex(this.userInfoTable).whereIn('account',data).select();
+    }
 }
 
 module.exports = new UserModel();
