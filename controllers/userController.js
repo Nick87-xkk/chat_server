@@ -1,5 +1,5 @@
 const userModel = require('../models/mysql/userModule.js');
-
+const friendModule = require('../models/mysql/friendModule.js')
 const userController = {
     // 验证登录
     verificationUser: async (req, res) => {
@@ -28,14 +28,20 @@ const userController = {
     // 用户注册
     userRegistration: async (req, res) => {
         try {
-            console.log(req.body)
-            let flg1 = await userModel.userRegistration(req.body)
-            let flg2 = await userModel.userRegistrationInfo(req.body)
-            // console.log(req);
-            res.json({
-                code: 200,
-                message: flg1,flg2
+            console.log("注册", req.body)
+            userModel.userRegistration(req.body).then(() => {
+                friendModule.createFriendInfo(req.body).then(() => {
+                    userModel.userRegistrationInfo(req.body).then(state => {
+                        res.json({
+                            code: 200,
+                            message: state
+                        })
+                    })
+                })
             })
+
+            // console.log(req);
+
         } catch (error) {
             console.log(error)
             res.json({
@@ -89,19 +95,19 @@ const userController = {
 
     },
     // 好友申请
-    friendRequest: async (req,res) => {
+    friendRequest: async (req, res) => {
         try {
             console.log(req.body)
             let state = await userModel.friendRequest(req.body);
             res.json({
-                code:200,
-                message:'success'
+                code: 200,
+                message: 'success'
             })
-        }catch (e) {
+        } catch (e) {
             console.log(e)
             res.json({
-                code:0,
-                message:e
+                code: 0,
+                message: e
             })
         }
     },
@@ -109,17 +115,17 @@ const userController = {
     AcceptOrRejectFriendRequest: async () => {
     },
     //
-    batchSearchUser: async (req,res)=>{
+    batchSearchUser: async (req, res) => {
         try {
             let results = await userModel.batchSearchUser(req.body.friends);
             res.json({
-                code:200,
-                message:results
+                code: 200,
+                message: results
             })
-        }catch (e) {
+        } catch (e) {
             res.json({
-                code:0,
-                message:e
+                code: 0,
+                message: e
             })
         }
     }
