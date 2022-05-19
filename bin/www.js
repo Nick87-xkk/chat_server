@@ -12,10 +12,10 @@ var fs = require('fs')
 var io = require('../socketio')
 
 //https 证书
-/*const options = {
-  key: fs.readFileSync('../key/privatekey.pem'),
-  cert: fs.readFileSync('../key/certificate.pem')
-}*/
+const options = {
+  key: fs.readFileSync('./key/192.168.31.221-key.pem'),
+  cert: fs.readFileSync('./key/192.168.31.221.pem')
+}
 /**
  * Get port from environment and store in Express.
  */
@@ -29,24 +29,24 @@ app.set('host','0.0.0.0');
  */
 
 var httpServer = http.createServer(app);
-// var httpsServer = https.createServer(options,app);
+var httpsServer = https.createServer(options,app);
 // 启动服务同时，创建socket服务
-io.getSocketio(httpServer)
+io.getSocketio(httpsServer)
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-httpServer.listen(port,()=>{
+httpServer.listen(443,()=>{
   console.log('http 运行在 9892端口')
 });
 httpServer.on('error', onError);
 httpServer.on('listening', onListening);
 
-// httpsServer.listen(443,()=>{
-//   console.log('https 运行在443端口')
-// })
-// httpsServer.on('error', onError);
-// httpsServer.on('listening', onListening);
+httpsServer.listen(9892,()=>{
+  console.log('https 运行在443端口')
+})
+httpsServer.on('error', onError);
+httpsServer.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.

@@ -8,7 +8,8 @@ module.exports = require('knex')({
     port: configs.mysql.port,
     user: configs.mysql.user,
     password: configs.mysql.password,
-    database: configs.mysql.database
+    database: configs.mysql.database,
+    charset:"utf8mb4"
   },
   // 打印错误
   log: {

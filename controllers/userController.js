@@ -111,7 +111,6 @@ const userController = {
     //
     batchSearchUser: async (req,res)=>{
         try {
-            console.log(req.body)
             let results = await userModel.batchSearchUser(req.body.friends);
             res.json({
                 code:200,

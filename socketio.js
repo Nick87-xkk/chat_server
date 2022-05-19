@@ -11,57 +11,42 @@ socketio.getSocketio = function (server) {
     });
 
     io.on('connection', (socket) => {
-         // console.log('a user connected');
-        // console.log(socket.handshake.query);
-        // console.log(socket.id);
-        // console.log(io.sockets.adapter.rooms);
-        // 链接数量
-        console.log(io.eio.clientsCount)
-        // 向除了自己以外的客户端推送消息
+        // 连接后将用户账号和socketID关联起来存入map中
         chatMap.set(socket.handshake.query.account, socket.id);
-        // console.log(chatMap);
-        // console.log(socket.id,socket.handshake.query.account);
+
         socket.on('chat message', async (msg) => {
-            // console.log(msg);
-
-            // console.log(chatMap.get(msg.receiveAccount.toString()));
-            // console.log(chatMap.get(msg.receiveAccount.toString().toString()))
-            //  console.log(await studentModel.selectById(1001));
-            // 发送给对应用户dd
-            socket.to(chatMap.get(msg.receiveAccount.toString().toString())).emit('chat message', JSON.stringify(msg));
-
-            // socket.broadcast.emit('chat message', `${socket.handshake.query.account}: ${msg.data}`);
-
+            if (chatMap.get(msg.receiveAccount)){
+                socket.to(chatMap.get(msg.receiveAccount.toString().toString())).emit('chat message', JSON.stringify(msg));
+            }
         });
+        // 游客聊天消息处理
         socket.on('visitor', (msg) => {
-            // console.log(msg)
+            // 向除了自己以外的客户端推送消息
             socket.broadcast.emit('visitor', msg);
         })
-        // 发起视屏
+
+        // 视屏视屏通话请求消息
         socket.on('video_call', (msg) => {
-            // console.log(msg);
-            // 视屏通话请求
-            socket.to(chatMap.get(msg.receiveAccount.toString().toString())).emit('video-request', msg.data)
+            let json = JSON.parse(msg)
+            socket.to(chatMap.get(json.receive_account).toString()).emit('video request', msg);
+        })
+        // 视屏通话被拒处理
+        socket.on("refuse videoCall",(msg)=>{
+            socket.to(chatMap.get(msg.account).toString()).emit('refuse video', {"refuse":1});
         })
         // rtc 视频 数据处理
-        socket.on('ice_candidate',async(msg)=>{
-            // console.log(JSON.parse(msg));
+        socket.on('ice_candidate', (msg)=>{
             let json = JSON.parse(msg);
-            // console.log(chatMap.get(msg.receiveAccount))
-            // console.log(chatMap)
-            // console.log(json.receiveAccount)
-            socket.broadcast.emit('_ice_candidate',msg);
-            /*if (json.receiveAccount){
-                socket.to(chatMap.get(json.receiveAccount.toString())).emit('_ice_candidate',msg);
-            }*/
+            socket.to(chatMap.get(json.account)).emit('_ice_candidate',msg);
+        })
+        // 挂断视屏通话
+        socket.on("hangup videoCall",(msg)=>{
+            console.log(msg)
+            socket.to(chatMap.get(msg.account).toString()).emit('hangup videoCall', {"hangup":1});
         })
     });
 
 };
 
-/* 
-  用户登录后将用户account和连接时产生的socketid对应放入缓存
-  通过account查找当前用户socketid实现点对点聊天
-*/
 
 module.exports = socketio;

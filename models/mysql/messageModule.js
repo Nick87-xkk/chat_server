@@ -1,5 +1,6 @@
 const Base = require('./base');
 const knex = require("./knex");
+const moment = require("moment");
 
 class MessageModule extends Base {
     constructor() {
@@ -13,7 +14,7 @@ class MessageModule extends Base {
             "receive_account":data.receive_account,
             "content_type":data.content_type,
             "content":data.content,
-            "time":data.time
+            "time":moment().format('YYYY-MM-DD HH:MM:SS')
         });
     }
     // 消息查找
