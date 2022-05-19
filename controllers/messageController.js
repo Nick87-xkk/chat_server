@@ -4,16 +4,18 @@ const messageController = {
     // 消息入库
     addMessage: async (req,res)=>{
         try {
-            let state = await messageModule.addMessage(req.body);
-            await conversionModule.updateConversionLatestMessage({
-                create_account: req.body.account,
-                member_account: req.body.receive_account,
-                latest_message: req.body.content
-            })
-            res.json({
-                code: 200,
-                message: state
-            })
+            let state = await messageModule.addMessage(req.body).then(()=>{
+                conversionModule.updateConversionLatestMessage({
+                    create_account: req.body.account,
+                    member_account: req.body.receive_account,
+                    latest_message: req.body.content
+                }).then(()=>{
+                    res.json({
+                        code: 200,
+                        message: state
+                    })
+                })
+            });
         }catch (e) {
             res.json({
                 code: 0,

@@ -21,7 +21,7 @@ class FriendModule extends Base {
         return knex(this.friendTable).where({
             "account": data.account
         }).update({
-            "friend_account": JSON.stringify(JSON.parse(data.friend_account))
+            "friend_account": JSON.stringify(data.friend_account)
         })
     }
 

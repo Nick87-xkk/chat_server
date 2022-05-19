@@ -6,6 +6,7 @@ const client = redis.createClient({
 })*/
 
 const friendModule = require("../models/mysql/friendModule")
+const {json} = require("express");
 
 const friendController = {
     // 建立好友列表 ，仅在用户注册成功后执行
@@ -43,11 +44,33 @@ const friendController = {
     // 更新好友列表信息
     updateFriendInfo: async (req, res) => {
         try {
-            let state = await friendModule.updateFriendInfo(req.body)
-            res.json({
-                code: 200,
-                message: state
-            })
+            console.log(req.body)
+            let state = '';
+            let result_info = await friendModule.searchFriendInfo(req.body);
+            let json1 = JSON.parse(result_info[0].friend_account);
+            let json2 = JSON.parse(req.body.friend_account);
+            console.log(json1)
+            console.log(json2)
+            let key1 = Object.keys(json1);
+            let key2 = Object.keys(json2)[0];
+            if (key1.includes(key2)) {
+                json1[key2].push(json2[key2][0])
+                state = await friendModule.updateFriendInfo({
+                    "account":req.body.account,
+                    "friend_account":json1
+                    })
+            } else {
+                json1[key2] = json2[key2];
+                state = await friendModule.updateFriendInfo({
+                    "account":req.body.account,
+                    "friend_account":json1
+                })
+            }
+            console.log(state)
+                res.json({
+                    code: 200,
+                    message:state
+                })
         } catch (e) {
             res.json({
                 code: 0,

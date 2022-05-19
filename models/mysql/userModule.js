@@ -1,5 +1,6 @@
 const Base = require('./base');
 const knex = require("./knex");
+const moment = require("moment");
 
 class UserModel extends Base {
     constructor() {
@@ -24,7 +25,7 @@ class UserModel extends Base {
         return knex(this.userTable).insert({
             "account":data.account,
             "password":data.password,
-            "create_time":data.create_time
+            "create_time":moment().format('YYYY-MM-DD HH:MM:SS')
         });
     }
     // 注册添加个人信息
