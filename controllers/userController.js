@@ -4,7 +4,7 @@ const userController = {
     // 验证登录
     verificationUser: async (req, res) => {
         try {
-            console.log(req.body);
+            // console.log(req.body);
             let user = await userModel.selectByAccount(req.body.account)
             // console.log(user);
             // MD5比对
@@ -28,7 +28,7 @@ const userController = {
     // 用户注册
     userRegistration: async (req, res) => {
         try {
-            console.log("注册", req.body)
+            // console.log("注册", req.body)
             userModel.userRegistration(req.body).then(() => {
                 friendModule.createFriendInfo(req.body).then(() => {
                     userModel.userRegistrationInfo(req.body).then(state => {
@@ -43,7 +43,7 @@ const userController = {
             // console.log(req);
 
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             res.json({
                 code: 0,
                 message: error
@@ -97,14 +97,14 @@ const userController = {
     // 好友申请
     friendRequest: async (req, res) => {
         try {
-            console.log(req.body)
+            // console.log(req.body)
             let state = await userModel.friendRequest(req.body);
             res.json({
                 code: 200,
                 message: 'success'
             })
         } catch (e) {
-            console.log(e)
+            // console.log(e)
             res.json({
                 code: 0,
                 message: e

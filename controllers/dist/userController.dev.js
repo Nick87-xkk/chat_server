@@ -17,13 +17,13 @@ var userController = {
           case 0:
             _context.prev = 0;
             // console.log(md5("a123456"));
-            console.log(req.body);
+            // console.log(req.body);
             _context.next = 4;
             return regeneratorRuntime.awrap(UserController.selectByAccount(req.body.account));
 
           case 4:
             user = _context.sent;
-            console.log(user); // MD5比对
+            // console.log(user); // MD5比对
 
             pd = md5(user[0].password);
             req.body.pd === pd ? res.json({
@@ -58,7 +58,7 @@ var userController = {
         switch (_context2.prev = _context2.next) {
           case 0:
             try {
-              console.log(req);
+              // console.log(req);
               res.json({
                 code: 200,
                 message: 'success'
@@ -84,7 +84,7 @@ var userController = {
         switch (_context3.prev = _context3.next) {
           case 0:
             try {
-              console.log(req);
+              // console.log(req);
               res.json({
                 code: 200,
                 message: 'success'
