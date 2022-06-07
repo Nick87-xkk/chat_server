@@ -39,9 +39,7 @@ const userController = {
                     })
                 })
             })
-
             // console.log(req);
-
         } catch (error) {
             // console.log(error)
             res.json({
